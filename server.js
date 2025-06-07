@@ -1,7 +1,9 @@
 const express = require("express");
+const cors = require("cors");
 const { getTransactionDetails } = require("./src/transactions");
 
 const app = express();
+app.use(cors()); // ✅ Allow requests from all origins
 
 app.get("/transaction/:hash", (req, res) => {
     const details = getTransactionDetails(req.params.hash);
@@ -9,7 +11,6 @@ app.get("/transaction/:hash", (req, res) => {
     res.json(details);
 });
 
-// ✅ Connect to port 8086
 const PORT = 8086;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
